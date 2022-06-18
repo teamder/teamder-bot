@@ -5,7 +5,14 @@ from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.contrib.fsm_storage.redis import RedisStorage2
 
+from dotenv import load_dotenv
+
+from sqlalchemy.ext.asyncio import create_async_engine
+from sqlalchemy.ext.asyncio.engine import AsyncEngine
+from sqlalchemy.pool import QueuePool
+
 from tgbot.config import load_config
+from tgbot.database.tables import metadata
 from tgbot.filters.role import RoleFilter, AdminFilter
 from tgbot.handlers.admin import register_admin
 from tgbot.handlers.user import register_user
@@ -14,9 +21,28 @@ from tgbot.middlewares.role import RoleMiddleware
 
 logger = logging.getLogger(__name__)
 
+if __name__ == "__main__":
+    load_dotenv(".env")
 
-def create_pool(user, password, database, host, echo):
-    raise NotImplementedError  # TODO check your db connector
+
+async def create_pool(database_url: str, echo: bool) -> AsyncEngine:
+    """Create connection pool to database
+
+    :param database_url: Database url
+    :type database_url: str
+    :param echo: Echo parameter
+    :type echo: bool
+    :return: Async connection pool
+    :rtype: AsyncEngine
+    """
+    engine = create_async_engine(
+        database_url, pool_size=20, max_overflow=0, poolclass=QueuePool, echo=echo
+    )
+
+    async with engine.begin() as conn:
+        await conn.run_sync(metadata.create_all)
+
+    return engine
 
 
 async def main():
@@ -32,10 +58,7 @@ async def main():
     else:
         storage = MemoryStorage()
     pool = await create_pool(
-        user=config.db.user,
-        password=config.db.password,
-        database=config.db.database,
-        host=config.db.host,
+        database_url=config.db.database_url,
         echo=False,
     )
 
