@@ -199,7 +199,8 @@ def register_admin(dp: Dispatcher):
         state=AdminPanelStates.add_admin_state, role=UserRole.ADMIN
     )
     dp.register_callback_query_handler(
-        add_admin_conf, admin_add_conf_cb.filter()
+        add_admin_conf, admin_add_conf_cb.filter(),
+        state=AdminPanelStates.add_admin_state
     )
     # # or you can pass multiple roles:
     # dp.register_message_handler(

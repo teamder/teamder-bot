@@ -49,5 +49,5 @@ def register_user(dp: Dispatcher):
         show_user_id, example_cb.filter()
     )
     dp.register_callback_query_handler(
-        cancel_handlder, cancel_cb.filter()
+        cancel_handlder, cancel_cb.filter(), state="*"
     )
