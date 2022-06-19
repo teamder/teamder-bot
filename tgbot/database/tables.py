@@ -20,3 +20,14 @@ users = Table(
         default=datetime.now, onupdate=datetime.now
     )
 )
+
+
+admins = Table(
+    "admins", metadata,
+    Column("user_id", BigInteger(), primary_key=True),
+    Column("created_on", DateTime(), default=datetime.now),
+    Column(
+        "updated_on", DateTime(),
+        default=datetime.now, onupdate=datetime.now
+    )
+)
