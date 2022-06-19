@@ -1,12 +1,19 @@
 from typing import Dict
 
 from aiogram import Dispatcher
+from aiogram.dispatcher import FSMContext
 from aiogram.types import CallbackQuery, Message
 
-from tgbot.cb_data import example_cb
+from tgbot.cb_data import example_cb, cancel_cb
 from tgbot.handlers.inline import example_kb
 from tgbot.middlewares.locale import _
 from tgbot.services.repository import Repo
+
+
+async def cancel_handlder(callback: CallbackQuery, state: FSMContext):
+    await state.reset_state()
+    await callback.message.delete()
+    await callback.message.answer(_("Action was canceled"))
 
 
 async def user_start(m: Message, repo: Repo):
@@ -40,4 +47,7 @@ def register_user(dp: Dispatcher):
     dp.register_message_handler(user_start, commands=["start"], state="*")
     dp.register_callback_query_handler(
         show_user_id, example_cb.filter()
+    )
+    dp.register_callback_query_handler(
+        cancel_handlder, cancel_cb.filter()
     )
