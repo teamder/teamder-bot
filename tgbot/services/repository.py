@@ -137,7 +137,7 @@ class Repo:
         )
 
         # Execute statement
-        res = self.conn.execute(stmt)
+        res = await self.conn.execute(stmt)
         try:
             # If one result found return True
             res.mappings().one()
