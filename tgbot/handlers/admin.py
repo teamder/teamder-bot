@@ -144,7 +144,8 @@ async def add_admin_handle(m: Message, state: FSMContext, repo: Repo):
             await m.reply(
                 _(
                     "Forwarded message was not sent by user! "
-                    "from this user, or send me his id. You can find it, "
+                    "Forward to me any message from this user, "
+                    "or send me his id. You can find it, "
                     "for example, from the bot @my_id_bot"
                 )
             )
@@ -234,7 +235,8 @@ async def del_admin_handle(m: Message, state: FSMContext, repo: Repo):
             await m.reply(
                 _(
                     "Forwarded message was not sent by user! "
-                    "from this user, or send me his id. You can find it, "
+                    "Forward to me any message from this user, "
+                    "or send me his id. You can find it, "
                     "for example, from the bot @my_id_bot"
                 )
             )
