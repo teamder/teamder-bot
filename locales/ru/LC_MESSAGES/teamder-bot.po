@@ -26,7 +26,7 @@ msgid ""
 "You in the admin panel"
 msgstr ""
 "Привет {user_name}!\n"
-"Ты в панеле администратора"
+"Ты в панели администратора"
 
 #: tgbot/handlers/admin.py:40
 msgid ""
