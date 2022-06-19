@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-06-19 04:25+0300\n"
-"PO-Revision-Date: 2022-06-19 04:30+0300\n"
+"POT-Creation-Date: 2022-06-19 05:00+0300\n"
+"PO-Revision-Date: 2022-06-19 05:01+0300\n"
 "Last-Translator: \n"
 "Language-Team: ru <LL@li.org>\n"
 "Language: ru\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Generated-By: Babel 2.9.1\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: tgbot/handlers/admin.py:13
+#: tgbot/handlers/admin.py:14
 msgid ""
 "Hello {user_name}!\n"
 "You in the admin panel"
@@ -28,18 +28,30 @@ msgstr ""
 "Привет {user_name}!\n"
 "Ты в панеле администратора"
 
-#: tgbot/handlers/user.py:21
+#: tgbot/handlers/admin.py:34
+msgid ""
+"{num}. {user_id}<a href='tg://user?id={user_id}'><b>{fullname}</b></a> "
+"{username}[{date}]\n"
+msgstr ""
+"{num}. <code>{user_id}</code><a href='tg://user?"
+"id={user_id}'><b>{fullname}</b></a> {username}[{date}]\n"
+
+#: tgbot/handlers/admin.py:60
+msgid "No users was found"
+msgstr "Ни одного пользователя не было найдено"
+
+#: tgbot/handlers/admin.py:69 tgbot/handlers/reply/admin_kb.py:10
+msgid "List users"
+msgstr "Список пользователей"
+
+#: tgbot/handlers/user.py:22
 msgid "Hello, user!"
 msgstr "Привет, пользователь!"
 
-#: tgbot/handlers/user.py:32
+#: tgbot/handlers/user.py:33
 msgid "Your id is {user_id}"
 msgstr "Твой айди <code>{user_id}</code>"
 
 #: tgbot/handlers/inline/example_kb.py:16
 msgid "Show my id"
 msgstr "Показать мой айди"
-
-#: tgbot/handlers/reply/admin_kb.py:10
-msgid "List users"
-msgstr "Список пользователей"
