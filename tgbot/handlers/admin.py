@@ -186,6 +186,11 @@ def register_admin(dp: Dispatcher):
     )
 
     dp.register_message_handler(
+        list_admins, lambda m: m.text == _("List admins"),
+        state="*", role=UserRole.ADMIN
+    )
+
+    dp.register_message_handler(
         add_admin, lambda m: m.text == _("Add admin"),
         state="*", role=UserRole.ADMIN
     )
