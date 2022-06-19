@@ -103,7 +103,9 @@ class Repo:
             users.c.user_id == user_id
         )
 
+        # Execute statement
         await self.conn.execute(stmt)
+        # Save changes
         await self.conn.commit()
         return
 
@@ -119,7 +121,9 @@ class Repo:
             user_id=user_id
         ).on_conflict_do_nothing()
 
+        # Execute statement
         await self.conn.execute(stmt)
+        # Save changes
         await self.conn.commit()
         return
 
