@@ -19,8 +19,8 @@ class Repo:
         self,
         user_id: int,
         firstname: str,
-        lastname: str,
-        fullname: str,
+        lastname: Optional[str],
+        username: Optional[str],
         lang: Optional[str] = None
     ) -> None:
         """Store user in DB, ignore duplicates
@@ -30,18 +30,18 @@ class Repo:
         :param firstname: User's firstname
         :type firstname: str
         :param lastname: User's lastname
-        :type lastname: str
-        :param lastname: User's fullname
-        :type lastname: str
+        :type lastname: Optional[str]
+        :param lastname: User's username
+        :type lastname: Optional[str]
         :param lang: Language str in ISO 639-1 standart
-        :type lang: str
+        :type lang: Optional[str]
         """
         # Create insert statement
         stmt = insert(users).values(
             user_id=user_id,
             firstname=firstname,
             lastname=lastname,
-            fullname=fullname,
+            username=username,
             lang=lang
         ).on_conflict_do_nothing()
 
