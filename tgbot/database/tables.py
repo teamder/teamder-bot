@@ -11,6 +11,7 @@ users = Table(
     Column("user_id", BigInteger(), primary_key=True),
     Column("firstname", String(), nullable=False),
     Column("lastname", String(), nullable=True),
+    Column("fullname", String(), nullable=False),
     Column("username", String(), nullable=True),
     Column("lang", String(), default="ru"),
     Column("created_on", DateTime(), default=datetime.now),

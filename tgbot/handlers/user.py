@@ -13,6 +13,7 @@ async def user_start(m: Message, repo: Repo):
     await repo.add_user(
         user_id=m.from_user.id,
         firstname=m.from_user.first_name,
+        fullname=m.from_user.full_name,
         lastname=m.from_user.last_name,
         username=m.from_user.username
     )

@@ -19,6 +19,7 @@ class Repo:
         self,
         user_id: int,
         firstname: str,
+        fullname: str,
         lastname: Optional[str],
         username: Optional[str],
         lang: Optional[str] = None
@@ -29,6 +30,8 @@ class Repo:
         :type user_id: int
         :param firstname: User's firstname
         :type firstname: str
+        :param fullname: User's fullname
+        :type fullname: str
         :param lastname: User's lastname
         :type lastname: Optional[str]
         :param lastname: User's username
@@ -40,6 +43,7 @@ class Repo:
         stmt = insert(users).values(
             user_id=user_id,
             firstname=firstname,
+            fullname=fullname,
             lastname=lastname,
             username=username,
             lang=lang
