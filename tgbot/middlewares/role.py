@@ -15,7 +15,10 @@ class RoleMiddleware(LifetimeControllerMiddleware):
     async def pre_process(self, obj, data, *args):
         if not getattr(obj, "from_user", None):
             data["role"] = None
-        elif obj.from_user.id in self.admin_list:
+        elif any((
+            obj.from_user.id in self.admin_list,
+            await data["repo"].is_admin(obj.from_user.id)
+        )):
             data["role"] = UserRole.ADMIN
         else:
             data["role"] = UserRole.USER
