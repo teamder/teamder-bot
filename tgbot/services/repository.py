@@ -78,7 +78,7 @@ class Repo:
             # If no results found return None
             return None
 
-    async def list_users(self) -> Optional[Dict[str, Any]]:
+    async def list_users(self) -> list:
         """List all bot users"""
         # Create statement
         stmt = select(users)
