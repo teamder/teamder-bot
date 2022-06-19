@@ -75,16 +75,12 @@ async def list_admins(m: Message, repo: Repo):
 
         # Generate message text
         for num, user in enumerate(user_list, start=1):
-            username = f"@{user.username}" if user.username is not None else ""
             msg_text += _(
-                "{num}. {user_id} "
-                "<a href='tg://user?id={user_id}'><b>{fullname}</b></a> "
-                "{username}[{date}]\n"
+                "{num}. <a href='tg://user?id={user_id}'>"
+                "<b>{user_id}</b></a> [{date}]\n"
             ).format(
                 num=num,
                 user_id=user.user_id,
-                fullname=user.fullname,
-                username=username,
                 date=user.created_on
             )
 
