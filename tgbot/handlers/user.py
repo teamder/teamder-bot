@@ -10,13 +10,17 @@ from tgbot.middlewares.locale import _
 from tgbot.services.repository import Repo
 
 
-async def cancel_handlder(callback: CallbackQuery, state: FSMContext):
+async def cancel_handler(callback: CallbackQuery, state: FSMContext):
+    # Reset state
     await state.reset_state()
+    # Remove message
     await callback.message.delete()
+    # Send message about cancel action
     await callback.message.answer(_("Action was canceled"))
 
 
 async def user_start(m: Message, repo: Repo):
+    # Add user to database
     await repo.add_user(
         user_id=m.from_user.id,
         firstname=m.from_user.first_name,
@@ -25,6 +29,7 @@ async def user_start(m: Message, repo: Repo):
         username=m.from_user.username
     )
 
+    # Send message to user with inline example keyboard
     await m.reply(
         _("Hello, user!"),
         reply_markup=example_kb.get_kb(m.from_user.id)
@@ -44,10 +49,15 @@ async def show_user_id(callback: CallbackQuery, callback_data: Dict[str, str]):
 
 
 def register_user(dp: Dispatcher):
+    # User start
     dp.register_message_handler(user_start, commands=["start"], state="*")
+
+    # Example callback handler
     dp.register_callback_query_handler(
         show_user_id, example_cb.filter()
     )
+
+    # Cancel callback handler
     dp.register_callback_query_handler(
-        cancel_handlder, cancel_cb.filter(), state="*"
+        cancel_handler, cancel_cb.filter(), state="*"
     )
