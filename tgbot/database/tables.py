@@ -14,5 +14,8 @@ users = Table(
     Column("username", String(), nullable=True),
     Column("lang", String(), default="ru"),
     Column("created_on", DateTime(), default=datetime.now),
-    Column("updated_on", DateTime(), default=datetime.now, onupdate=datetime.now)
+    Column(
+        "updated_on", DateTime(),
+        default=datetime.now, onupdate=datetime.now
+    )
 )
