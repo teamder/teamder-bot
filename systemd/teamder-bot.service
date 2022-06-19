@@ -1,0 +1,13 @@
+[Unit]
+Description=Teamder Bot
+After=network.target
+
+[Service]
+User=teamder
+Type=simple
+WorkingDirectory=/home/teamder/teamder-bot
+ExecStart=/home/teamder/teamder-bot/venv/bin/python bot.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
