@@ -5,7 +5,7 @@ from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.ext.asyncio.engine import AsyncConnection
 
-from tgbot.database.tables import users
+from tgbot.database.tables import admins, users
 
 
 class Repo:
@@ -102,6 +102,22 @@ class Repo:
         ).where(
             users.c.user_id == user_id
         )
+
+        await self.conn.execute(stmt)
+        await self.conn.commit()
+        return
+
+    # admins
+    async def add_admin(self, user_id: int) -> None:
+        """Store admin in DB, ignore duplicates
+
+        :param user_id: User telegram id
+        :type user_id: int
+        """
+        # Create statement
+        stmt = insert(admins).values(
+            user_id=user_id
+        ).on_conflict_do_nothing()
 
         await self.conn.execute(stmt)
         await self.conn.commit()
