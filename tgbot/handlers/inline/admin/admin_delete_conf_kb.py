@@ -1,7 +1,7 @@
 from aiogram.types.inline_keyboard import InlineKeyboardButton, \
     InlineKeyboardMarkup
 
-from tgbot.cb_data import admin_delete_conf_cb
+from tgbot.cb_data import admin_delete_conf_cb, cancel_cb
 from tgbot.middlewares.locale import _
 
 
@@ -19,9 +19,7 @@ def get_kb(user_id: int) -> InlineKeyboardMarkup:
         ),
         InlineKeyboardButton(
             text=_("No"),
-            callback_data=admin_delete_conf_cb.new(
-                user_id=None
-            )
+            callback_data=cancel_cb.new()
         ),
     )
 
