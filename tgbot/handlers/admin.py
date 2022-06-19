@@ -25,6 +25,7 @@ async def admin_panel(m: Message):
     )
 
 
+# Users
 async def list_users(m: Message, repo: Repo):
     # Get all users from database
     user_list = await repo.list_users()
@@ -65,6 +66,7 @@ async def list_users(m: Message, repo: Repo):
         await m.answer(_("No users was found"))
 
 
+# Admins
 async def list_admins(m: Message, repo: Repo):
     # Get all admins from database
     user_list = await repo.list_admins()
@@ -116,7 +118,7 @@ async def add_admin(m: Message, state: FSMContext):
     )
 
 
-async def add_admin_handle(m: Message, state: FSMContext):
+async def add_admin_handle(m: Message, state: FSMContext, repo: Repo):
     try:
         # If message is forwarded take user id from it
         if getattr(m, "forward_from", None):
@@ -137,6 +139,7 @@ async def add_admin_handle(m: Message, state: FSMContext):
         return
 
     else:
+        # If message from group or channel
         if user_id < 0:
             await m.reply(
                 _(
@@ -147,7 +150,8 @@ async def add_admin_handle(m: Message, state: FSMContext):
             )
             return
 
-        else:
+        # If user is not an admin
+        elif not await repo.is_admin(user_id):
             await m.answer(
                 _(
                     "Are you sure you want to add user {user_id} as an admin?"
@@ -155,6 +159,14 @@ async def add_admin_handle(m: Message, state: FSMContext):
                     user_id=user_id
                 ),
                 reply_markup=admin_add_conf_kb.get_kb(user_id)
+            )
+
+        # If user is admin
+        else:
+            await m.answer(
+                _(
+                    "User is already an admin"
+                )
             )
 
 
@@ -255,6 +267,7 @@ async def del_admin_handle(m: Message, state: FSMContext, repo: Repo):
         return
 
     else:
+        # If message from group or channel
         if user_id < 0:
             await m.reply(
                 _(
@@ -264,6 +277,7 @@ async def del_admin_handle(m: Message, state: FSMContext, repo: Repo):
                 )
             )
 
+        # If user is admin
         elif await repo.is_admin(user_id):
             await m.answer(
                 _(
@@ -275,6 +289,7 @@ async def del_admin_handle(m: Message, state: FSMContext, repo: Repo):
                 reply_markup=admin_delete_conf_kb.get_kb(user_id)
             )
 
+        # If user is not admin
         else:
             await m.answer(
                 _(
@@ -307,20 +322,25 @@ async def del_admin_conf(
 
 
 def register_admin(dp: Dispatcher):
+    # Admin panel
     dp.register_message_handler(
         admin_panel, commands=["admin"],
         state="*", role=UserRole.ADMIN
     )
+
+    # List users
     dp.register_message_handler(
         list_users, lambda m: m.text == _("List users"),
         state="*", role=UserRole.ADMIN
     )
 
+    # List admins
     dp.register_message_handler(
         list_admins, lambda m: m.text == _("List admins"),
         state="*", role=UserRole.ADMIN
     )
 
+    # Add admin
     dp.register_message_handler(
         add_admin, lambda m: m.text == _("Add admin"),
         state="*", role=UserRole.ADMIN
@@ -334,6 +354,7 @@ def register_admin(dp: Dispatcher):
         state=AdminPanelStates.add_admin_state
     )
 
+    # Delete admin
     dp.register_message_handler(
         del_admin, lambda m: m.text == _("Delete admin"),
         state="*", role=UserRole.ADMIN
