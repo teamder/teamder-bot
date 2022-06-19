@@ -1,0 +1,44 @@
+# English translations for PROJECT.
+# Copyright (C) 2022 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2022-06-19 04:25+0300\n"
+"PO-Revision-Date: 2022-06-19 04:30+0300\n"
+"Last-Translator: \n"
+"Language-Team: en <LL@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Babel 2.9.1\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: tgbot/handlers/admin.py:13
+msgid ""
+"Hello {user_name}!\n"
+"You in the admin panel"
+msgstr ""
+"Hello {user_name}!\n"
+"You in the admin panel"
+
+#: tgbot/handlers/user.py:21
+msgid "Hello, user!"
+msgstr "Hello, user!"
+
+#: tgbot/handlers/user.py:32
+msgid "Your id is {user_id}"
+msgstr "Your id is <code>{user_id}</code>"
+
+#: tgbot/handlers/inline/example_kb.py:16
+msgid "Show my id"
+msgstr "Show my id"
+
+#: tgbot/handlers/reply/admin_kb.py:10
+msgid "List users"
+msgstr "List users"
