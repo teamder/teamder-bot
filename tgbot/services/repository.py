@@ -170,3 +170,13 @@ class Repo:
         await self.conn.commit()
         # Return deleted row count
         return res.rowcount
+
+    async def list_admins(self) -> list:
+        """List all bot admins"""
+        # Create statement
+        stmt = select(admins)
+
+        # Execute statement
+        res = await self.conn.execute(stmt)
+        # Return all found data in list of dicts or None
+        return res.mappings().all()
