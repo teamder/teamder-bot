@@ -36,7 +36,8 @@ async def create_pool(database_url: str, echo: bool) -> AsyncEngine:
     :rtype: AsyncEngine
     """
     engine = create_async_engine(
-        database_url, pool_size=20, max_overflow=0, poolclass=QueuePool, echo=echo
+        database_url, pool_size=20, max_overflow=0,
+        poolclass=QueuePool, echo=echo
     )
 
     async with engine.begin() as conn:
