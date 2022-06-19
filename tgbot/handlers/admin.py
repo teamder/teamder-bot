@@ -1,3 +1,4 @@
+import logging
 from typing import Dict
 
 from aiogram import Dispatcher
@@ -12,6 +13,8 @@ from tgbot.handlers.states.admin.admin_panel import AdminPanelStates
 from tgbot.middlewares.locale import _
 from tgbot.models.role import UserRole
 from tgbot.services.repository import Repo
+
+logger = logging.getLogger(__name__)
 
 
 async def admin_panel(m: Message):
@@ -184,6 +187,10 @@ async def add_admin_conf(
     await repo.add_admin(user_id=user_id)
     # Finish add admin state
     await state.finish()
+
+    # Log
+    logger.info(f"ADMIN {callback.from_user.id} ADD USER {user_id} TO ADMIN")
+
     # Send success message
     await callback.message.answer(
         _(
@@ -275,6 +282,10 @@ async def del_admin_conf(
     await repo.del_admin(user_id=user_id)
     # Finish add admin state
     await state.finish()
+
+    # Log
+    logger.info(f"ADMIN {callback.from_user.id} DELETE USER {user_id} FROM ADMINS")
+
     # Send success message
     await callback.message.answer(
         _(
