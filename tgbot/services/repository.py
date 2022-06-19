@@ -1,6 +1,6 @@
 from typing import Any, Dict, Optional
 
-from sqlalchemy import select, update
+from sqlalchemy import delete, select, update
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.ext.asyncio.engine import AsyncConnection
@@ -146,3 +146,23 @@ class Repo:
         except NoResultFound:
             # If no results found return False
             return False
+
+    async def del_admin(self, user_id: int) -> int:
+        """Delete admin from DB
+
+        :param user_id: User telegram id
+        :type user_id: int
+        :return: Deleted row count
+        :rtype: int
+        """
+        # Create statement
+        stmt = delete(admins).where(
+            admins.c.user_id == user_id
+        )
+
+        # Execute statement
+        res = await self.conn.execute(stmt)
+        # Save changes
+        await self.conn.commit()
+        # Return deleted row count
+        return res.rowcount
