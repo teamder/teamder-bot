@@ -53,12 +53,14 @@ async def create_pool(database_url: str, echo: bool) -> AsyncEngine:
 
 
 async def main():
-    # Config logger
+    """Bot initializator"""
+    # Setup logger
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",
     )
     logger.error("Starting bot")
+    # Load config
     config = load_config()
 
     # Setup FSM storage
