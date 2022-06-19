@@ -152,7 +152,7 @@ class Repo:
             return False
 
     async def del_admin(self, user_id: int) -> int:
-        """Delete admin from DB
+        """Delete admin from DB by user id
 
         :param user_id: User telegram id
         :type user_id: int
