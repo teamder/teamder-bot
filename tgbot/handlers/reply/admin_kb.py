@@ -9,5 +9,5 @@ def get_kb():
     keyboard.add(
         KeyboardButton(_("Список пользователей"))
     )
-    
+
     return keyboard
