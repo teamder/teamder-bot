@@ -9,7 +9,8 @@ Step 2: create *.po files
     `pybabel init -i locales/mybot.pot -d locales -D teamder-bot -l ru`
 
 Step 3: translate texts located in locales/{language}/LC_MESSAGES/mybot.po
-    To open .po file you can use basic text editor or any PO editor, e.g. https://poedit.net/
+    To open .po file you can use basic text editor or any PO
+    editor, e.g. https://poedit.net/
 
 Step 4: compile translations
     run `pybabel compile -d locales -D teamder-bot` to compile all
