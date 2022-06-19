@@ -192,44 +192,6 @@ async def add_admin_conf(
         )
     )
 
-    # Get all users from database
-    user_list = await repo.list_users()
-
-    # If any user was found
-    if user_list:
-        msg_text: str = ""
-
-        # Generate message text
-        for num, user in enumerate(user_list, start=1):
-            username = f"@{user.username}" if user.username is not None else ""
-            msg_text += _(
-                "{num}. {user_id} "
-                "<a href='tg://user?id={user_id}'><b>{fullname}</b></a> "
-                "{username}[{date}]\n"
-            ).format(
-                num=num,
-                user_id=user.user_id,
-                fullname=user.fullname,
-                username=username,
-                date=user.created_on
-            )
-
-        # If message long than maximum possible message
-        # then split message text on parts
-        if len(msg_text) > parts.MAX_MESSAGE_LENGTH:
-            for message in parts.safe_split_text(
-                msg_text, split_separator="\n"
-            ):
-                await m.answer(message)
-
-        # Else simply send this message text
-        else:
-            await m.answer(msg_text)
-
-    # If no users was found then send message about it
-    else:
-        await m.answer(_("No users was found"))
-
 
 async def del_admin(m: Message, state: FSMContext):
     # Reseting state
