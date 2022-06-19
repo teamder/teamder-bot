@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-06-19 05:00+0300\n"
-"PO-Revision-Date: 2022-06-19 05:01+0300\n"
+"POT-Creation-Date: 2022-06-19 07:08+0300\n"
+"PO-Revision-Date: 2022-06-19 07:09+0300\n"
 "Last-Translator: \n"
 "Language-Team: en <LL@li.org>\n"
 "Language: en\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Generated-By: Babel 2.9.1\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: tgbot/handlers/admin.py:14
+#: tgbot/handlers/admin.py:19
 msgid ""
 "Hello {user_name}!\n"
 "You in the admin panel"
@@ -27,30 +27,115 @@ msgstr ""
 "Hello {user_name}!\n"
 "You in the admin panel"
 
-#: tgbot/handlers/admin.py:34
+#: tgbot/handlers/admin.py:40
 msgid ""
-"{num}. {user_id}<a href='tg://user?id={user_id}'><b>{fullname}</b></a> "
+"{num}. {user_id} <a href='tg://user?id={user_id}'><b>{fullname}</b></a> "
 "{username}[{date}]\n"
 msgstr ""
-"{num}. <code>{user_id}</code><a href='tg://user?"
-"id={user_id}'><b>{fullname}</b></a> {username}[{date}]\n"
+"{num}. <code>{user_id}</code> <a href='tg://user?id={user_id}'><b>{fullname}"
+"</b></a> {username}[{date}]\n"
 
-#: tgbot/handlers/admin.py:60
+#: tgbot/handlers/admin.py:66
 msgid "No users was found"
 msgstr "No users was found"
 
-#: tgbot/handlers/admin.py:69 tgbot/handlers/reply/admin_kb.py:10
+#: tgbot/handlers/admin.py:80
+msgid "{num}. <a href='tg://user?id={user_id}'><b>{user_id}</b></a> [{date}]\n"
+msgstr ""
+"{num}. <a href='tg://user?id={user_id}'><b>{user_id}</b></a> [{date}]\n"
+
+#: tgbot/handlers/admin.py:103
+msgid "No admins was added"
+msgstr "No admins was added"
+
+#: tgbot/handlers/admin.py:114
+msgid "Send user id or forward message from user who will be an admin"
+msgstr "Send user id or forward message from user who will be an admin"
+
+#: tgbot/handlers/admin.py:133 tgbot/handlers/admin.py:224
+msgid ""
+"User id is invalid! Forward to me any message from this user, or send me his "
+"id. You can find it, for example, from the bot @my_id_bot"
+msgstr ""
+"User id is invalid! Forward to me any message from this user, or send me his "
+"id. You can find it, for example, from the bot @my_id_bot"
+
+#: tgbot/handlers/admin.py:145 tgbot/handlers/admin.py:236
+msgid ""
+"Forwarded message was not sent by user! Forward to me any message from this "
+"user, or send me his id. You can find it, for example, from the bot "
+"@my_id_bot"
+msgstr ""
+"Forwarded message was not sent by user! from this user, or send me his id. "
+"You can find it, for example, from the bot @my_id_bot"
+
+#: tgbot/handlers/admin.py:157
+msgid "Are you sure you want to add user {user_id} as an admin?"
+msgstr "Are you sure you want to add user <code>{user_id}</code> as an admin?"
+
+#: tgbot/handlers/admin.py:168
+msgid "User is already an admin"
+msgstr "User is already an admin"
+
+#: tgbot/handlers/admin.py:189
+msgid "User {user_id} was added as an admin!"
+msgstr "User <code>{user_id}</code> was added as an admin!"
+
+#: tgbot/handlers/admin.py:205
+msgid "Send user id or forward message from user who will removed from admins"
+msgstr "Send user id or forward message from user who will removed from admins"
+
+#: tgbot/handlers/admin.py:247
+msgid "Are you sure you want to remove user {user_id} from admins?"
+msgstr ""
+"Are you sure you want to remove user <code>{user_id}</code> from admins?"
+
+#: tgbot/handlers/admin.py:259
+msgid "This user is not an admin"
+msgstr "This user is not an admin"
+
+#: tgbot/handlers/admin.py:280
+msgid "User {user_id} was removed from admins!"
+msgstr "User <code>{user_id}</code> was removed from admins!"
+
+#: tgbot/handlers/admin.py:297 tgbot/handlers/reply/admin_kb.py:10
 msgid "List users"
 msgstr "List users"
 
-#: tgbot/handlers/user.py:22
+#: tgbot/handlers/admin.py:303 tgbot/handlers/reply/admin_kb.py:13
+msgid "List admins"
+msgstr "List admins"
+
+#: tgbot/handlers/admin.py:309 tgbot/handlers/reply/admin_kb.py:16
+msgid "Add admin"
+msgstr "Add admin"
+
+#: tgbot/handlers/admin.py:323 tgbot/handlers/reply/admin_kb.py:17
+msgid "Delete admin"
+msgstr "Delete admin"
+
+#: tgbot/handlers/user.py:16
+msgid "Action was canceled"
+msgstr "Action was canceled"
+
+#: tgbot/handlers/user.py:29
 msgid "Hello, user!"
 msgstr "Hello, user!"
 
-#: tgbot/handlers/user.py:33
+#: tgbot/handlers/user.py:40
 msgid "Your id is {user_id}"
 msgstr "Your id is <code>{user_id}</code>"
 
 #: tgbot/handlers/inline/example_kb.py:16
 msgid "Show my id"
 msgstr "Show my id"
+
+#: tgbot/handlers/inline/admin/admin_add_conf_kb.py:15
+#: tgbot/handlers/inline/admin/admin_delete_conf_kb.py:15
+msgid "Yes"
+msgstr "Yes"
+
+#: tgbot/handlers/inline/admin/admin_add_conf_kb.py:21
+#: tgbot/handlers/inline/admin/admin_delete_conf_kb.py:21
+msgid "No"
+msgstr "No"
