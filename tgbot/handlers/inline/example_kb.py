@@ -13,7 +13,7 @@ def get_kb(user_id: int) -> InlineKeyboardMarkup:
     # Add button with text and callback data
     keyboard.add(
         InlineKeyboardButton(
-            text=_("Ping!"),
+            text=_("Show my id"),
             callback_data=example_cb.new(
                 some_data=user_id
             )
