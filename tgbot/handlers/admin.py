@@ -9,7 +9,7 @@ from tgbot.models.role import UserRole
 from tgbot.services.repository import Repo
 
 
-async def admin_start(m: Message):
+async def admin_panel(m: Message):
     await m.reply(
         _(
             "Hello {user_name}!\nYou in the admin panel"
@@ -32,7 +32,7 @@ async def list_users(m: Message, repo: Repo):
         for num, user in enumerate(user_list, start=1):
             username = f"@{user.username}" if user.username is not None else ""
             msg_text += _(
-                "{num}. {user_id}"
+                "{num}. {user_id} "
                 "<a href='tg://user?id={user_id}'><b>{fullname}</b></a> "
                 "{username}[{date}]\n"
             ).format(
@@ -62,7 +62,7 @@ async def list_users(m: Message, repo: Repo):
 
 def register_admin(dp: Dispatcher):
     dp.register_message_handler(
-        admin_start, commands=["start"],
+        admin_panel, commands=["admin"],
         state="*", role=UserRole.ADMIN
     )
     dp.register_message_handler(
@@ -71,11 +71,11 @@ def register_admin(dp: Dispatcher):
     )
     # # or you can pass multiple roles:
     # dp.register_message_handler(
-    #     admin_start, commands=["start"],
+    #     admin_panel, commands=["admin"],
     #     state="*", role=[UserRole.ADMIN]
     # )
     # # or use another filter:
     # dp.register_message_handler(
-    #     admin_start, commands=["start"],
+    #     admin_panel, commands=["admin"],
     #     state="*", is_admin=True
     # )
