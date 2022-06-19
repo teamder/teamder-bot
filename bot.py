@@ -66,7 +66,7 @@ async def main():
     bot = Bot(token=config.tg_bot.token)
     dp = Dispatcher(bot, storage=storage)
     dp.middleware.setup(DbMiddleware(pool))
-    dp.middleware.setup(RoleMiddleware(config.tg_bot.admin_id))
+    dp.middleware.setup(RoleMiddleware(config.tg_bot.admin_list))
     dp.filters_factory.bind(RoleFilter)
     dp.filters_factory.bind(AdminFilter)
 
