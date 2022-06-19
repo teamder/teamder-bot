@@ -122,3 +122,27 @@ class Repo:
         await self.conn.execute(stmt)
         await self.conn.commit()
         return
+
+    async def is_admin(self, user_id: int) -> bool:
+        """Checks user is admin or not
+
+        :param user_id: User telegram id
+        :type user_id: int
+        :return: User is admin boolean
+        :rtype: bool
+        """
+        # Create statement
+        stmt = select(admins).where(
+            admins.c.user_id == user_id
+        )
+
+        # Execute statement
+        res = self.conn.execute(stmt)
+        try:
+            # If one result found return True
+            res.mappings().one()
+            return True
+
+        except NoResultFound:
+            # If no results found return False
+            return False
