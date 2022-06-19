@@ -33,7 +33,7 @@ async def create_pool(database_url: str, echo: bool) -> AsyncEngine:
     :type database_url: str
     :param echo: Echo parameter
     :type echo: bool
-    :return: Async connection pool
+    :return: Async connection engine
     :rtype: AsyncEngine
     """
     engine = create_async_engine(
@@ -42,12 +42,15 @@ async def create_pool(database_url: str, echo: bool) -> AsyncEngine:
     )
 
     async with engine.begin() as conn:
+        # Create tables in database
         await conn.run_sync(metadata.create_all)
 
+    # Return connection engine
     return engine
 
 
 async def main():
+    # Config logger
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",
@@ -55,24 +58,36 @@ async def main():
     logger.error("Starting bot")
     config = load_config()
 
+    # Setup FSM storage
     if config.tg_bot.use_redis:
         storage = RedisStorage2()
     else:
         storage = MemoryStorage()
+
+    # Create database connection pool
     pool = await create_pool(
         database_url=config.db.database_url,
         echo=False,
     )
 
+    # Create bot instance
     bot = Bot(token=config.tg_bot.token, parse_mode="html")
+    # Create Dispatcher instance
     dp = Dispatcher(bot, storage=storage)
+
+    # Setup database middleware
     dp.middleware.setup(DbMiddleware(pool))
+    # Setup role middleware
     dp.middleware.setup(RoleMiddleware(config.tg_bot.admin_list))
+    # Setup localisatino middleware
     dp.middleware.setup(i18n)
+    # Create role filters
     dp.filters_factory.bind(RoleFilter)
     dp.filters_factory.bind(AdminFilter)
 
+    # Register admin handlers
     register_admin(dp)
+    # Register user handlers
     register_user(dp)
 
     # start
