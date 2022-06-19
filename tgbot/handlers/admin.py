@@ -172,7 +172,13 @@ async def add_admin_conf(
     # Finish add admin state
     await state.finish()
     # Send success message
-    await callback.message.answer(_("User {user_id} was added as an admin!"))
+    await callback.message.answer(
+        _(
+            "User {user_id} was added as an admin!"
+        ).format(
+            user_id=user_id
+        )
+    )
 
 
 def register_admin(dp: Dispatcher):
