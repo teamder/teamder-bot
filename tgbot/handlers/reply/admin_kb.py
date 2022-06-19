@@ -4,10 +4,10 @@ from tgbot.middlewares.locale import _
 
 
 def get_kb():
-    keyboard = ReplyKeyboardMarkup(row_width=2)
+    keyboard = ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
 
     keyboard.add(
-        KeyboardButton(_("Список пользователей"))
+        KeyboardButton(_("List users"))
     )
 
     return keyboard
