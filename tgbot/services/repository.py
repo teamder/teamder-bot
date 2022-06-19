@@ -1,4 +1,4 @@
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 
 from sqlalchemy import select, update
 from sqlalchemy.dialects.postgresql import insert
@@ -74,7 +74,7 @@ class Repo:
             # If no results found return None
             return None
 
-    async def list_users(self) -> Optional[Dict[str]]:
+    async def list_users(self) -> Optional[Dict[str, Any]]:
         """List all bot users"""
         # Create statement
         stmt = select(users)
