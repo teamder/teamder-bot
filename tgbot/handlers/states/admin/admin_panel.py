@@ -1,7 +1,7 @@
+"""States for admin panel"""
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
 
-# States for admin panel
 class AdminPanelStates(StatesGroup):
     # State for input admin's user id
     # for add them to DB

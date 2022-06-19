@@ -1,3 +1,4 @@
+"""Admin panel main reply keyboard"""
 from aiogram.types.reply_keyboard import ReplyKeyboardMarkup, KeyboardButton
 
 from tgbot.middlewares.locale import _

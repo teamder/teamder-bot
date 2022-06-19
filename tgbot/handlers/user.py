@@ -1,3 +1,4 @@
+"""User main handlers"""
 from typing import Dict
 
 from aiogram import Dispatcher

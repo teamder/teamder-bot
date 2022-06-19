@@ -1,3 +1,4 @@
+"""Admin menu handlers"""
 import logging
 from typing import Dict
 

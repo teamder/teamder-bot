@@ -1,3 +1,4 @@
+"""Create callback data for inline keyboards"""
 from aiogram.utils.callback_data import CallbackData
 
 # Callback data just for example
