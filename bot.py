@@ -14,11 +14,14 @@ from sqlalchemy.pool import QueuePool
 from tgbot.config import load_config
 from tgbot.database.tables import metadata
 from tgbot.filters.role import RoleFilter, AdminFilter
+
 from tgbot.handlers.admin import register_admin
 from tgbot.handlers.user import register_user
+
 from tgbot.middlewares.db import DbMiddleware
 from tgbot.middlewares.role import RoleMiddleware
 from tgbot.middlewares.locale import i18n
+from tgbot.middlewares.throttling import ThrottlingMiddleware
 
 logger = logging.getLogger(__name__)
 
@@ -79,7 +82,9 @@ async def main():
     dp.middleware.setup(DbMiddleware(pool))
     # Setup role middleware
     dp.middleware.setup(RoleMiddleware(config.tg_bot.admin_list))
-    # Setup localisatino middleware
+    # Setup throttling middleware
+    dp.middleware.setup(ThrottlingMiddleware())
+    # Setup localisation middleware
     dp.middleware.setup(i18n)
     # Create role filters
     dp.filters_factory.bind(RoleFilter)
