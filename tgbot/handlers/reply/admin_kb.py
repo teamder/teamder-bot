@@ -9,5 +9,12 @@ def get_kb():
     keyboard.add(
         KeyboardButton(_("List users"))
     )
+    keyboard.add(
+        KeyboardButton(_("List admins"))
+    )
+    keyboard.add(
+        KeyboardButton(_("Add admin")),
+        KeyboardButton(_("Delete admin")),
+    )
 
     return keyboard
