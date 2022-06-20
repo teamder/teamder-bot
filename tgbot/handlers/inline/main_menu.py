@@ -1,7 +1,7 @@
 from aiogram.types.inline_keyboard import InlineKeyboardButton, \
     InlineKeyboardMarkup
 
-from tgbot.cb_data import example_cb
+from tgbot.cb_data import main_menu_cb
 from tgbot.middlewares.locale import _
 
 
@@ -13,26 +13,26 @@ def get_kb(user_id: int) -> InlineKeyboardMarkup:
     keyboard.add(
         InlineKeyboardButton(
             text=_("Projects"),
-            callback_data=example_cb.new(
-                some_data=user_id
+            callback_data=main_menu_cb.new(
+                menu="projects"
             )
         ),
         InlineKeyboardButton(
             text=_("New project"),
-            callback_data=example_cb.new(
-                some_data=user_id
+            callback_data=main_menu_cb.new(
+                menu="new_project"
             )
         ),
         InlineKeyboardButton(
             text=_("Overview"),
-            callback_data=example_cb.new(
-                some_data=user_id
+            callback_data=main_menu_cb.new(
+                menu="overview"
             )
         ),
         InlineKeyboardButton(
             text=_("Settings"),
-            callback_data=example_cb.new(
-                some_data=user_id
+            callback_data=main_menu_cb.new(
+                menu="settings"
             )
         ),
     )
