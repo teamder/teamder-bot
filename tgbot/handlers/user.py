@@ -1,12 +1,10 @@
 """User main handlers"""
-from typing import Dict
-
 from aiogram import Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.types import CallbackQuery, Message
 from aiogram.utils import parts
 
-from tgbot.cb_data import example_cb, cancel_cb, main_menu_cb
+from tgbot.cb_data import cancel_cb, main_menu_cb
 from tgbot.handlers.inline import main_menu
 from tgbot.middlewares.locale import _
 from tgbot.services.repository import Repo
@@ -36,19 +34,6 @@ async def user_start(m: Message, repo: Repo):
         _("Teamder main menu"),
         reply_markup=main_menu.get_kb(m.from_user.id)
     )
-
-
-async def show_user_id(callback: CallbackQuery, callback_data: Dict[str, str]):
-    # Get data from callback data
-    user_id = callback_data.get("some_data")
-
-    raise NotImplementedError()
-    # Answer on callback
-    # await callback.message.answer(
-    #     _("Your id is {user_id}").format(user_id=user_id)
-    # )
-    # Remove clocks on inline button
-    await callback.answer()
 
 
 async def show_user_projects(callback: CallbackQuery, repo: Repo):
@@ -89,11 +74,6 @@ async def show_user_projects(callback: CallbackQuery, repo: Repo):
 def register_user(dp: Dispatcher):
     # User start
     dp.register_message_handler(user_start, commands=["start"], state="*")
-
-    # Example callback handler
-    dp.register_callback_query_handler(
-        show_user_id, example_cb.filter()
-    )
 
     # Cancel callback handler
     dp.register_callback_query_handler(

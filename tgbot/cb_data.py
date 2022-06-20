@@ -1,9 +1,6 @@
 """Create callback data for inline keyboards"""
 from aiogram.utils.callback_data import CallbackData
 
-# Callback data just for example
-example_cb = CallbackData("example", "some_data")
-
 main_menu_cb = CallbackData("main_menu", "menu")
 
 projects_callback = CallbackData("projects", "view")
