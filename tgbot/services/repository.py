@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 
 from sqlalchemy import delete, select, update
 from sqlalchemy.dialects.postgresql import insert
@@ -172,7 +172,7 @@ class Repo:
         # Return deleted row count
         return res.rowcount
 
-    async def list_admins(self) -> list:
+    async def list_admins(self) -> List[RowMapping]:
         """List all bot admins"""
         # Create statement
         stmt = select(admins)
@@ -228,6 +228,24 @@ class Repo:
             # If no results found return None
             return None
     
+    async def get_users_projects(self, owner_id: int) -> List[RowMapping]:
+        """Returns all users project from DB by owner_id
+
+        :param owner_id: Project owner telegram id
+        :type owner_id: int
+        :return: Projects list
+        :rtype: list
+        """
+        # Create statement
+        stmt = select(projects).where(
+            projects.c.owner_id == owner_id
+        )
+        
+        # Execute statement
+        res = await self.conn.execute(stmt)
+        # Return all results
+        return res.mappings().all()
+
     async def del_project_by_id(self, project_id: int) -> int:
         """Remove project from DB by project id
 
