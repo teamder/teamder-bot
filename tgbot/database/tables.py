@@ -2,7 +2,7 @@
 from datetime import datetime
 
 from sqlalchemy import MetaData, Table, BigInteger, \
-    Column, DateTime, String
+    Column, DateTime, String, Text
 
 metadata = MetaData()
 
@@ -30,4 +30,14 @@ admins = Table(
         "updated_on", DateTime(),
         default=datetime.now, onupdate=datetime.now
     )
+)
+
+projects = Table(
+    "projects", metadata,
+    Column("project_id", BigInteger(), primary_key=True),
+    Column("created_on", DateTime(), default=datetime.now),
+    Column("owner_id", String(), nullable=False),
+    Column("name", String()),
+    Column("description", Text()),
+    Column("members", Text())
 )

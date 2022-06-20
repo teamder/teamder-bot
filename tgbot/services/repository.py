@@ -5,7 +5,7 @@ from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.ext.asyncio.engine import AsyncConnection
 
-from tgbot.database.tables import admins, users
+from tgbot.database.tables import admins, users, projects
 
 
 class Repo:
@@ -180,3 +180,41 @@ class Repo:
         res = await self.conn.execute(stmt)
         # Return all found data in list of dicts or None
         return res.mappings().all()
+    
+    # projects
+    async def add_project(self, owner_id: int, name: str, description: str) -> None:
+        # Create statement
+        stmt = insert(projects).values(
+            owner_id=owner_id,
+            name=name,
+            description=description
+        ).on_conflict_do_nothing()
+
+        # Execute statement
+        await self.conn.execute(stmt)
+        # Commit changes
+        await self.conn.commit()
+        return
+    
+    async def get_project_by_id(self, project_id: int) -> list:
+        # Create statement
+        stmt = select(projects).where(
+            projects.c.project_id == project_id
+        )
+        # Execute statement
+        res = await self.conn.execute(stmt)
+        # Return all found data in list of dicts or None
+        return res.mappings().all()
+    
+    async def del_project_by_id(self, project_id: int) -> int:
+        # Create statement
+        stmt = delete(projects).where(
+            projects.c.project_id == project_id
+        )
+
+        # Execute statement
+        res = await self.conn.execute(stmt)
+        # Save changes
+        await self.conn.commit()
+        # Return deleted row count
+        return res.rowcount
