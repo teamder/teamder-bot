@@ -4,8 +4,9 @@ from typing import Dict
 from aiogram import Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.types import CallbackQuery, Message
+from aiogram.utils import parts
 
-from tgbot.cb_data import example_cb, cancel_cb
+from tgbot.cb_data import example_cb, cancel_cb, main_menu_cb
 from tgbot.handlers.inline import main_menu
 from tgbot.middlewares.locale import _
 from tgbot.services.repository import Repo
@@ -49,8 +50,40 @@ async def show_user_id(callback: CallbackQuery, callback_data: Dict[str, str]):
     # Remove clocks on inline button
     await callback.answer()
 
-async def show_user_projects(callback: CallbackQuery, callback_data: Dict[str, str]):
-    pass
+
+async def show_user_projects(callback: CallbackQuery, repo: Repo):
+    # Get all user projects
+    projects = await repo.get_users_projects(callback.from_user.id)
+
+    # If user don't have any projects - return
+    if not projects:
+        await callback.message.answer(
+            _("You don't have any projects yet")
+        )
+        return
+    
+    # Else generate message text with info about every project
+    msg_text = ""
+    for num, project in enumerate(projects, start=1):
+        msg_text += _(
+            "{num}. {name} - {desc} [{created_on}]\n"
+        ).format(
+            num=num,
+            name=project.name,
+            desc=project.description.replace("\n", ""),
+            created_on=project.created_on
+        )
+    
+    # Message text length is longer than maximum posible
+    if len(msg_text) > parts.MAX_MESSAGE_LENGTH:
+        # Safe split message on parts with split separator as new line
+        for msg in parts.safe_split_text(msg_text, split_separator="\n"):
+            # Send every part of messsage
+            await callback.message.answer(msg)
+
+    # Else send all message text without spliting
+    else:
+        await callback.message.answer(msg_text)
 
 
 def register_user(dp: Dispatcher):
@@ -65,4 +98,10 @@ def register_user(dp: Dispatcher):
     # Cancel callback handler
     dp.register_callback_query_handler(
         cancel_handler, cancel_cb.filter(), state="*"
+    )
+
+    # Show user projects callback handler
+    dp.register_callback_query_handler(
+        show_user_projects, main_menu_cb.filter(menu="projects"),
+        state="*"
     )
