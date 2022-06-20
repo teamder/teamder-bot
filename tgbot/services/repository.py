@@ -183,6 +183,15 @@ class Repo:
     
     # projects
     async def add_project(self, owner_id: int, name: str, description: str) -> None:
+        """Stores project info DB, ignore duplicates
+
+        :param owner_id: Project owner telegram id
+        :type owner_id: int
+        :param name: Project name
+        :type name: str
+        :param description: Project description
+        :type description: str
+        """
         # Create statement
         stmt = insert(projects).values(
             owner_id=owner_id,
@@ -197,6 +206,13 @@ class Repo:
         return
     
     async def get_project_by_id(self, project_id: int) -> list:
+        """Returns project from DB by project id
+
+        :param project_id: Project id
+        :type project_id: int
+        :return: Project info
+        :rtype: list
+        """
         # Create statement
         stmt = select(projects).where(
             projects.c.project_id == project_id
@@ -207,6 +223,13 @@ class Repo:
         return res.mappings().all()
     
     async def del_project_by_id(self, project_id: int) -> int:
+        """Remove project from DB by project id
+
+        :param project_id: Project id
+        :type project_id: int
+        :return: Removed row count
+        :rtype: int
+        """
         # Create statement
         stmt = delete(projects).where(
             projects.c.project_id == project_id
