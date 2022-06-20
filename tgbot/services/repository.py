@@ -2,6 +2,7 @@ from typing import Optional
 
 from sqlalchemy import delete, select, update
 from sqlalchemy.dialects.postgresql import insert
+from sqlalchemy.engine.row import RowMapping
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.ext.asyncio.engine import AsyncConnection
 
@@ -55,7 +56,7 @@ class Repo:
         await self.conn.commit()
         return
 
-    async def get_user(self, user_id: int) -> Optional[dict]:
+    async def get_user(self, user_id: int) -> Optional[RowMapping]:
         """Returns user from database by user id
 
         :param user_id: User telegram id
@@ -69,7 +70,7 @@ class Repo:
         )
 
         # Execute statement
-        res = self.conn.execute(stmt)
+        res = await self.conn.execute(stmt)
         try:
             # Try to return one result
             return res.mappings().one()
@@ -205,7 +206,7 @@ class Repo:
         await self.conn.commit()
         return
     
-    async def get_project_by_id(self, project_id: int) -> list:
+    async def get_project_by_id(self, project_id: int) -> Optional[RowMapping]:
         """Returns project from DB by project id
 
         :param project_id: Project id
@@ -219,8 +220,13 @@ class Repo:
         )
         # Execute statement
         res = await self.conn.execute(stmt)
-        # Return all found data in list of dicts or None
-        return res.mappings().all()
+        try:
+            # Try to return one result
+            return res.mappings().one()
+
+        except NoResultFound:
+            # If no results found return None
+            return None
     
     async def del_project_by_id(self, project_id: int) -> int:
         """Remove project from DB by project id
