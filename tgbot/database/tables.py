@@ -35,9 +35,9 @@ admins = Table(
 projects = Table(
     "projects", metadata,
     Column("project_id", BigInteger(), primary_key=True),
-    Column("created_on", DateTime(), default=datetime.now),
     Column("owner_id", String(), nullable=False),
     Column("name", String()),
     Column("description", Text()),
-    Column("members", Text())
+    Column("members", Text()),
+    Column("created_on", DateTime(), default=datetime.now),
 )
