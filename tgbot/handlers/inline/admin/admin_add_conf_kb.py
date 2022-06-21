@@ -1,4 +1,4 @@
-"""Inline keyboard for add admin confirmation"""
+"""Inline keyboard for adding admin confirmation"""
 from aiogram.types.inline_keyboard import InlineKeyboardButton, \
     InlineKeyboardMarkup
 

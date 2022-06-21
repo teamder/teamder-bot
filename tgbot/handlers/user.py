@@ -46,7 +46,7 @@ async def show_user_projects(callback: CallbackQuery, repo: Repo):
             _("You don't have any projects yet")
         )
         return
-    
+
     # Else generate message text with info about every project
     msg_text = ""
     for num, project in enumerate(projects, start=1):
@@ -58,7 +58,7 @@ async def show_user_projects(callback: CallbackQuery, repo: Repo):
             desc=project.description.replace("\n", ""),
             created_on=project.created_on
         )
-    
+
     # Message text length is longer than maximum posible
     if len(msg_text) > parts.MAX_MESSAGE_LENGTH:
         # Safe split message on parts with split separator as new line

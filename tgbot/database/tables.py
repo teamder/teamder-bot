@@ -1,8 +1,9 @@
 """Contains database tables info"""
 from datetime import datetime
 
-from sqlalchemy import MetaData, Table, BigInteger, \
-    Column, DateTime, String, Text, Integer
+from sqlalchemy import MetaData, Table, Column
+from sqlalchemy import BigInteger, Integer, DateTime
+from sqlalchemy import String, Text
 
 metadata = MetaData()
 
