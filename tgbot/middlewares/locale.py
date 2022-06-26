@@ -1,7 +1,7 @@
 """This middleware need for bot localisation
 
 Step 1: extract texts
-    run `pybabel extract --input_dir=./tgbot -o locales/teamder-bot.pot` to
+    run `pybabel extract --input-dirs=./tgbot -o locales/teamder-bot.pot` to
     extract all locale strings
 
 Step 2: create *.po files
