@@ -1,5 +1,7 @@
-aiogram
-aioredis
-asyncpg
-python-dotenv
-sqlalchemy[async]
+aiogram==2.21
+aiohttp
+aioredis==2.0.1
+asyncpg==0.25.0
+gunicorn
+python-dotenv==0.20.0
+sqlalchemy==1.4.39

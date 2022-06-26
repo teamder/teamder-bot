@@ -22,10 +22,19 @@ class RedisConfig:
 
 
 @dataclass
+class WebhookConfig:
+    domain: str
+    path: str
+    host: str
+    port: int
+
+
+@dataclass
 class Config:
     tg_bot: TgBot
     db: DbConfig
     redis: RedisConfig
+    webhook: WebhookConfig
 
 
 def cast_bool(value: str) -> bool:
@@ -59,5 +68,11 @@ def load_config():
                 "postgres://", "postgresql+asyncpg://"
             )
         ),
-        redis=RedisConfig(url=getenv("REDIS_URL"))
+        redis=RedisConfig(url=getenv("REDIS_URL")),
+        webhook=WebhookConfig(
+            domain=getenv("WEBHOOK_DOMAIN"),
+            path=getenv("WEBHOOK_PATH"),
+            host=getenv("HOST"),
+            port=int(getenv("PORT", default=5000))
+        )
     )
