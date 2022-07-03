@@ -181,9 +181,11 @@ class Repo:
         res = await self.conn.execute(stmt)
         # Return all found data in list of dicts or None
         return res.mappings().all()
-    
+
     # projects
-    async def add_project(self, owner_id: int, name: str, description: str) -> None:
+    async def add_project(
+            self, owner_id: int,
+            name: str, description: str) -> None:
         """Stores project info DB, ignore duplicates
 
         :param owner_id: Project owner telegram id
@@ -204,8 +206,7 @@ class Repo:
         await self.conn.execute(stmt)
         # Commit changes
         await self.conn.commit()
-        return
-    
+
     async def get_project_by_id(self, project_id: int) -> Optional[RowMapping]:
         """Returns project from DB by project id
 
@@ -227,7 +228,7 @@ class Repo:
         except NoResultFound:
             # If no results found return None
             return None
-    
+
     async def get_users_projects(self, owner_id: int) -> List[RowMapping]:
         """Returns all users project from DB by owner_id
 
@@ -240,7 +241,7 @@ class Repo:
         stmt = select(projects).where(
             projects.c.owner_id == owner_id
         )
-        
+
         # Execute statement
         res = await self.conn.execute(stmt)
         # Return all results
